@@ -60,3 +60,20 @@ ORDER BY
 LIMIT
     10
 ;
+
+-- Number of orders from each city, country
+
+SELECT
+    COUNT(o.order_id) AS order_count,
+    a.city,
+    a.country
+FROM
+     offuture.order AS o
+INNER JOIN offuture.address AS a
+    ON a.address_id = o.address_id
+GROUP BY
+    a.city,
+    a.country
+ORDER BY
+    order_count DESC
+;
