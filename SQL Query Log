@@ -100,3 +100,15 @@ SELECT
     customer_id
 FROM
     offuture.order
+
+-- average ship time for priority tiers
+
+SELECT
+order_priority,
+round (avg (ship_date - order_date),2) AS avg_shiptime
+FROM
+offuture."order"
+GROUP BY
+order_priority
+ORDER BY
+order_priority;
