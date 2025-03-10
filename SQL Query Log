@@ -1,1 +1,62 @@
 SQL Queries with Descriptor 
+--best performing by category
+select
+	p.category,
+	sum(o.profit)
+from
+	product p
+inner join order_item o on p.product_id = o.product_id
+group by
+	p.category
+order by
+	sum(o.profit) asc;
+
+
+
+--best performing, colour irrelevant
+SELECT 
+    SPLIT_PART(p.product_name, ',', 1) AS product_name_no_colour,
+    SUM(oi.profit)
+FROM 
+    offuture.product AS p
+INNER JOIN order_item AS oi
+    ON p.product_id = oi.product_id
+GROUP BY
+    product_name_no_colour
+ORDER BY
+    SUM(oi.profit) asc
+LIMIT
+    10
+;
+
+--worst performing, colour irrelevant
+SELECT 
+    SPLIT_PART(p.product_name, ',', 1) AS product_name_no_colour,
+    SUM(oi.profit)
+FROM 
+    offuture.product AS p
+INNER JOIN order_item AS oi
+    ON p.product_id = oi.product_id
+GROUP BY
+    product_name_no_colour
+ORDER BY
+    SUM(oi.profit) asc
+LIMIT
+    10
+;
+
+--best performing by units sold
+SELECT 
+    SPLIT_PART(p.product_name, ',', 1) AS product_name_no_colour,
+    count(oi.product_id)
+FROM 
+    offuture.product AS p
+INNER JOIN order_item AS oi
+    ON p.product_id = oi.product_id
+GROUP BY
+    product_name_no_colour
+ORDER BY
+    count(oi.product_id) desc
+LIMIT
+    10
+;
