@@ -112,3 +112,25 @@ GROUP BY
 order_priority
 ORDER BY
 order_priority;
+
+-- Total units sold by sub-category
+    
+SELECT
+    p.sub_category,
+    ROUND(AVG(oi.profit),2) AS avg_profit,
+    SUM(oi.quantity) AS total_units,
+    ROUND(AVG(oi.quantity),2) AS avg_units_per_order,
+    SUM(oi.profit) AS total_profit,
+    SUM(oi.sales) AS total_sales
+FROM
+    customer AS c
+INNER JOIN offuture.order AS o
+    ON c.customer_id_long = o.customer_id
+INNER JOIN offuture.order_item AS oi
+    ON oi.order_id = o.order_id
+INNER JOIN offuture.product AS p
+    ON p.product_id = oi.product_id
+GROUP BY
+    p.sub_category
+ORDER BY
+    avg_profit DESC;
