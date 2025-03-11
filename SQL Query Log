@@ -101,6 +101,20 @@ SELECT
 FROM
     offuture.order
 
+
+-- average ship time by region
+
+SELECT
+region,
+round (avg (ship_date - order_date),2) AS avg_shiptime
+FROM
+offuture."order"
+GROUP BY
+region
+ORDER BY
+region;
+
+
 -- average ship time for priority tiers
 
 SELECT
@@ -176,3 +190,11 @@ GROUP BY
     p.product_name
 ORDER BY
     total_profit DESC;
+
+
+
+
+
+
+
+
