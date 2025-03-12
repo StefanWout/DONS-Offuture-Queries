@@ -103,17 +103,20 @@ FROM
     offuture.order
 
 
--- average ship time by region
+-- average ship time by country
 
 SELECT
-region,
-round (avg (ship_date - order_date),2) AS avg_shiptime
+	country,
+    round (avg (ship_date - order_date),2) AS avg_shiptime
 FROM
-offuture."order"
+     offuture.order AS ord
+INNER JOIN offuture.address AS add
+    ON add.address_id = ord.address_id
 GROUP BY
-region
+   country
 ORDER BY
-region;
+    country asc
+;
 
 
 -- average ship time for priority tiers
