@@ -30,7 +30,7 @@ LIMIT
     10
 ;
 
---worst performing, colour irrelevant
+--worst performing regardless of colour variation
 SELECT 
     SPLIT_PART(p.product_name, ',', 1) AS product_name_no_colour,
     SUM(oi.profit)
@@ -96,11 +96,6 @@ INNER JOIN offuture.order_item AS oi
     ON oi.order_id = o.order_id
 GROUP BY
     c.segment;
-    
-SELECT
-    customer_id
-FROM
-    offuture.order
 
 
 -- average ship time by country
