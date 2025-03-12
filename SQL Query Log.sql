@@ -1,5 +1,7 @@
-SQL Queries WITH DESCRIPTOR
+--SQL Queries WITH DESCRIPTOR
+	
 --best performing by category
+
 SELECT
 	p.category,
 	sum(o.profit)
@@ -29,7 +31,10 @@ ORDER BY
 LIMIT
     10
 ;
+
+
 --worst performing regardless of colour variation
+
 SELECT
 	SPLIT_PART(p.product_name,
 	',',
@@ -47,7 +52,10 @@ ORDER BY
 LIMIT
     10
 ;
+
+
 --best performing by units sold
+
 SELECT
 	SPLIT_PART(p.product_name,
 	',',
@@ -65,6 +73,8 @@ ORDER BY
 LIMIT
     10
 ;
+
+
 -- Number of orders from each city, country
 
 SELECT
@@ -82,6 +92,8 @@ GROUP BY
 ORDER BY
 	order_count DESC
 ;
+
+
 -- Total units sold by Segement 
     
 SELECT
@@ -103,6 +115,8 @@ INNER JOIN offuture.order_item AS oi
 	oi.order_id = o.order_id
 GROUP BY
 	c.segment;
+
+
 -- average ship time by country
 
 SELECT
@@ -119,6 +133,8 @@ GROUP BY
 ORDER BY
 	country ASC
 ;
+
+
 -- average ship time for priority tiers
 
 SELECT
@@ -131,6 +147,8 @@ GROUP BY
 	order_priority
 ORDER BY
 	order_priority;
+
+
 -- Total Units sold and Total profit by segment and category
 
 SELECT
@@ -159,6 +177,8 @@ GROUP BY
 	p.category
 ORDER BY
 	c.segment;
+
+
 -- Total units sold by sub category
     
 SELECT
@@ -185,6 +205,8 @@ GROUP BY
 	p.sub_category
 ORDER BY
 	avg_profit DESC;
+
+
 -- Top performing Copiers (highest profit sub category)
 
 SELECT
@@ -204,6 +226,8 @@ GROUP BY
 	p.product_name
 ORDER BY
 	total_profit DESC;
+
+
 -- Worst performing sub_category (Tables) Profitability and Units sold
 
 SELECT
