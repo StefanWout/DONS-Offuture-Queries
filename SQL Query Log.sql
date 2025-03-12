@@ -135,20 +135,6 @@ ORDER BY
 ;
 
 
--- average ship time for priority tiers
-
-SELECT
-	order_priority,
-	round (avg (ship_date - order_date),
-	2) AS avg_shiptime
-FROM
-	offuture."order"
-GROUP BY
-	order_priority
-ORDER BY
-	order_priority;
-
-
 -- Total Units sold and Total profit by segment and category
 
 SELECT
