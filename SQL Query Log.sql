@@ -247,3 +247,62 @@ GROUP BY
 	p.category
 ORDER BY
 	profit_per_unit ASC;
+
+--analysis worst product sold
+
+select
+	round(sum(oi.profit)/ sum(oi.quantity)) as ppu,
+	sum(oi.profit) profit,
+	sum(oi.quantity) 
+from
+	offuture.product p
+INNER JOIN offuture.order_item AS oi
+ON p.product_id = oi.product_id
+where
+	product_name = 'Cubify CubeX 3D Printer Double Head Print';
+
+--Amount of products per year
+
+select
+	o.order_date,
+	sum(oi.quantity),
+	sum(oi.profit)
+from
+	offuture.order_item oi 
+inner join offuture.order o on oi.order_id = o.order_id
+group by
+	o.order_date
+
+--items with only one unit sold
+	
+SELECT 
+    SPLIT_PART(p.product_name, ',', 1) AS product_name_no_colour,
+    count(oi.product_id)	*	count(oi.quantity) units_sold,
+    sum(profit)
+FROM 
+    offuture.product AS p
+INNER JOIN offuture.order_item AS oi
+    ON p.product_id = oi.product_id
+GROUP BY
+    product_name_no_colour
+ORDER BY
+    units_sold asc
+LIMIT
+    81;
+
+--profit per item of most profitable
+
+SELECT 
+    SPLIT_PART(p.product_name, ',', 1) AS product_name_no_colour,
+    round(sum(oi.profit)/sum(oi.quantity),2) as profit_per_item
+FROM 
+    offuture.product AS p
+INNER JOIN offuture.order_item AS oi
+    ON p.product_id = oi.product_id
+GROUP BY
+    product_name_no_colour
+ORDER BY
+    SUM(oi.profit) desc
+LIMIT
+    10
+;
